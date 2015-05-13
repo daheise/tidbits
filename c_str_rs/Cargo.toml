@@ -1,0 +1,11 @@
+[package]
+
+name = "hellors"
+version = "0.0.1"
+links = "hello"
+build = "build.rs"
+
+[[bin]]
+        name = "hellors"
+        path = "src/hellors.rs"
+
