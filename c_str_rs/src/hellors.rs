@@ -1,6 +1,8 @@
 #![feature(libc)]
 extern crate libc;
+use std::str;
 use std::ptr;
+use std::ffi::CStr;
 
 #[link(name = "hello")]
 extern{
@@ -19,6 +21,13 @@ fn hi() -> String {
     }
 }
 
+fn hi2() -> String{
+    let tmp = unsafe { CStr::from_ptr(hello()) };
+    let retval = str::from_utf8(tmp.to_bytes()).unwrap().to_owned();
+    unsafe {libc::free(tmp.as_ptr() as *mut libc::c_void);}
+    return retval;
+}
+
 fn main(){
   println!("{}", hi());
 }
@@ -26,4 +35,9 @@ fn main(){
 #[test]
 fn test_say_hi(){
     assert!(hi() == "Hello");
+}
+
+#[test]
+fn test_say_hi2(){
+    assert!(hi2() == "Hello");
 }
