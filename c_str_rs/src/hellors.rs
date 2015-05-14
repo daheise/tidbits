@@ -23,7 +23,7 @@ fn hi() -> String {
 
 fn hi2() -> String{
     let tmp = unsafe { CStr::from_ptr(hello()) };
-    let retval = str::from_utf8(tmp.to_bytes()).unwrap().to_owned();
+    let retval = str::from_utf8(tmp.to_bytes()).unwrap_or("").to_owned();
     unsafe {libc::free(tmp.as_ptr() as *mut libc::c_void);}
     return retval;
 }
