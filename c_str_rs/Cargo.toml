@@ -9,3 +9,5 @@ build = "build.rs"
         name = "hellors"
         path = "src/hellors.rs"
 
+[dependencies]
+libc = "*"
